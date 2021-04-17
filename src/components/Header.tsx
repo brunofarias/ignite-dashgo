@@ -26,7 +26,7 @@ export function Header() {
         as="label"
         pos="relative"
         flex="1"
-        alignSelf="center"
+        align="center"
         maxW={400}
         ml="6"
         py="4"
