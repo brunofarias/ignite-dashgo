@@ -1,12 +1,14 @@
 import { useState } from 'react';
-import NextLink from 'next/link';
-import { Box, Button, Checkbox, Flex, Heading, Icon, IconButton, Table, Tbody, Td, Text, Th, Thead, Tr, Spinner, Link, useBreakpointValue } from '@chakra-ui/react';
 import { RiAddLine, RiPencilLine } from 'react-icons/ri';
+import { Box, Button, Checkbox, Flex, Heading, Icon, IconButton, Table, Tbody, Td, Text, Th, Thead, Tr, Spinner, Link, useBreakpointValue } from '@chakra-ui/react';
+
+import NextLink from 'next/link';
+import { GetServerSideProps } from 'next';
 
 import { Header } from '../../components/Header';
 import { Sidebar } from '../../components/Sidebar';
 import { Pagination } from '../../components/Pagination';
-import { useUsers } from '../../services/hooks/useUsers';
+import { getUsers, useUsers } from '../../services/hooks/useUsers';
 import { queryClient } from '../../services/queryClient';
 import { api } from '../../services/api';
 
@@ -20,8 +22,8 @@ export default function UserList() {
   })
 
   async function handlePrefetchUser(userId: string) {
-    await queryClient.prefetchQuery(['users', userId], async () => {
-      const response = await api.get(`user/${userId}`)
+    await queryClient.prefetchQuery(['user', userId], async () => {
+      const response = await api.get(`users/${userId}`)
 
       return response.data;
     }, {
